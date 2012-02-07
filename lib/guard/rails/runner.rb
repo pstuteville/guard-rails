@@ -33,14 +33,14 @@ module Guard
       rails_options = [
         '-e', options[:environment],
         '-p', options[:port],
-        '--pid', pid_file
+        '-P', pid_file
       ]
 
       rails_options << '-d' if options[:daemon]
       rails_options << '-u' if options[:debugger]
-      rails_options << options[:server] if options[:server]
+      #rails_options << options[:server] if options[:server]
 
-      %{sh -c 'cd #{Dir.pwd} && script/server #{rails_options.join(' ')} &'}
+      %{sh -c 'cd #{Dir.pwd} && thin #{rails_options.join(' ')} start &'}
     end
 
     def pid_file
@@ -104,4 +104,5 @@ module Guard
     end
   end
 end
+
 
